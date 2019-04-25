@@ -10,9 +10,10 @@ version:
 
 stages:
   makisu:
-    image: gcr.io/makisu-project/makisu:v0.1.10
+    image: golang:1.12.4-alpine3.9
     commands:
-    - makisu_build -t estafette/${ESTAFETTE_GIT_NAME}:dev .
+    - go get github.com/uber/makisu/bin/makisu
+    - build -t estafette/${ESTAFETTE_GIT_NAME}:dev .
 
   # bake:
   #   image: extensions/docker:stable
