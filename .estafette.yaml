@@ -13,8 +13,8 @@ stages:
     image: golang:1.12.4-alpine3.9
     commands:
     - apk --no-cache add git
-    - go get github.com/uber/makisu/bin/makisu
-    - ls -latr
+    - go get github.com/uber/makisu/bin/makisu@v0.1.10
+    - mkdir -p /makisu-storage
     - makisu build -t estafette/${ESTAFETTE_GIT_NAME}:dev .
 
   # bake:
