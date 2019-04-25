@@ -11,6 +11,10 @@ version:
 stages:
   makisu:
     image: golang:1.12.4-alpine3.9
+    env:
+      CGO_ENABLED: 0
+      GOOS: linux
+      GO111MODULE: on
     commands:
     - apk --no-cache add git
     - go get github.com/uber/makisu/bin/makisu@v0.1.10
