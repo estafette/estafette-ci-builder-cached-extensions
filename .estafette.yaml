@@ -16,7 +16,7 @@ stages:
       FROM estafette/estafette-ci-builder:dev
 
       RUN dockerd --host=unix:///var/run/docker.sock --host=tcp://0.0.0.0:2375 --storage-driver=overlay2 --max-concurrent-downloads=10 &
-      RUN while [ ! -f /var/run/docker.sock ] do; sleep 2; done
+      RUN while [ ! -f /var/run/docker.sock ]; do sleep 2; done
 
       RUN docker pull extensions/git-clone:dev
     repositories:
