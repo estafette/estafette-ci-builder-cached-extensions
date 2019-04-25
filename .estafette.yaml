@@ -18,7 +18,8 @@ stages:
     - apk --no-cache add git
     - go get github.com/uber/makisu/bin/makisu
     - mkdir -p /makisu-storage
-    - makisu build -t estafette/${ESTAFETTE_GIT_NAME}:dev .
+    - makisu build --registry-config='{"index.docker.io": {".*": {"security": {"tls": {"client": {"disabled": false}}, "basic": {"username": "", "password": ""}}}}}' --modifyfs --push index.docker.io -t estafette/${ESTAFETTE_GIT_NAME}:dev .
+
 
   # bake:
   #   image: extensions/docker:stable
