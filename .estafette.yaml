@@ -9,24 +9,31 @@ version:
     minor: 0
 
 stages:
-  bake:
-    image: extensions/docker:stable
-    action: build
-    inline: |
-      FROM estafette/estafette-ci-builder:dev
+  makisu:
+    image: gcr.io/makisu-project/makisu:v0.1.10
+    commands:
+    - makisu_build -t estafette/${ESTAFETTE_GIT_NAME}:dev .
 
-      RUN dockerd --host=unix:///var/run/docker.sock --host=tcp://0.0.0.0:2375 --storage-driver=overlay2 --max-concurrent-downloads=10 &
-      RUN while [ ! -f /var/run/docker.sock ]; do sleep 2; done
+  # bake:
+  #   image: extensions/docker:stable
+  #   action: build
+  #   inline: |
+  #     FROM estafette/estafette-ci-builder:dev
 
-      RUN docker pull extensions/git-clone:dev
-    repositories:
-    - estafette
+  #     RUN dockerd --host=unix:///var/run/docker.sock --host=tcp://0.0.0.0:2375 --storage-driver=overlay2 --max-concurrent-downloads=10 &
+  #     RUN while [ ! -f /var/run/docker.sock ]; do sleep 2; done
 
-  push-to-docker-hub:
-    image: extensions/docker:stable
-    action: push
-    repositories:
-    - estafette
-    pushVersionTag: false
-    tags:
-    - dev
+  #     RUN docker pull extensions/git-clone:dev
+
+  #     RUN find /run /var/run -iname 'docker*.pid' -delete
+  #   repositories:
+  #   - estafette
+
+  # push-to-docker-hub:
+  #   image: extensions/docker:stable
+  #   action: push
+  #   repositories:
+  #   - estafette
+  #   pushVersionTag: false
+  #   tags:
+  #   - dev
