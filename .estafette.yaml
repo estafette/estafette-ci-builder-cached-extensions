@@ -14,7 +14,8 @@ stages:
     commands:
     - apk --no-cache add git
     - go get github.com/uber/makisu/bin/makisu
-    - build -t estafette/${ESTAFETTE_GIT_NAME}:dev .
+    - ls -latr
+    - makisu build -t estafette/${ESTAFETTE_GIT_NAME}:dev .
 
   # bake:
   #   image: extensions/docker:stable
