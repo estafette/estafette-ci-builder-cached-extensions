@@ -1,0 +1,29 @@
+labels:
+  app-group: estafette-ci
+  team: estafette-team
+  language: docker
+
+version:
+  semver:
+    major: 0
+    minor: 0
+
+stages:
+  bake:
+    image: extensions/docker:stable
+    action: build
+    inline: |
+      FROM estafette/estafette-ci-builder:dev
+
+      RUN docker pull extensions/git-clone:dev
+    repositories:
+    - estafette
+
+  push-to-docker-hub:
+    image: extensions/docker:stable
+    action: push
+    repositories:
+    - estafette
+    pushVersionTag: false
+    tags:
+    - dev
